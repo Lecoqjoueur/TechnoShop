@@ -1,0 +1,51 @@
+﻿@model IEnumerable<TechnoShop.Models.Client>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.pseudo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.adresse)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.mdp)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.pseudo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.adresse)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.mdp)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IDClient }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IDClient }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IDClient })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,50 @@
+﻿@model TechnoShop.Models.Commande
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Commande</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Clients.pseudo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Clients.pseudo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Produits.nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Produits.nom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.quantite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.quantite)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Grade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Grade)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IDCommande }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
