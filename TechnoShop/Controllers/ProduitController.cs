@@ -49,13 +49,20 @@ namespace TechnoShop.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IDProduit,nom,marque,detail,prix")] Produit produit)
         {
-            if (ModelState.IsValid)
+            try
+            {
+                if (ModelState.IsValid)
             {
                 db.Produits.Add(produit);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            }
+            catch (DataException /* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+            }
             return View(produit);
         }
 
@@ -91,11 +98,15 @@ namespace TechnoShop.Controllers
         }
 
         // GET: Produit/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, bool? saveChangesError = false)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ViewBag.ErrorMessage = "Delete failed. Try again, and if the problem persists see your system administrator.";
             }
             Produit produit = db.Produits.Find(id);
             if (produit == null)

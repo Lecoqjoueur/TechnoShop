@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using TechnoShop.DAL;
 using TechnoShop.Models;
+using PagedList;
+using System.Data.Entity.Infrastructure;
 
 namespace TechnoShop.Controllers
 {
@@ -16,9 +18,49 @@ namespace TechnoShop.Controllers
         private MagasinContext db = new MagasinContext();
 
         // GET: Client
-        public ActionResult Index()
+        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View(db.Clients.ToList());
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "pseudo_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Adresse" ? "adresse_desc" : "Adresse";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var clients = from s in db.Clients
+                           select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                clients = clients.Where(s => s.pseudo.Contains(searchString)
+                                       || s.adresse.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "pseudo_desc":
+                    clients = clients.OrderByDescending(s => s.pseudo);
+                    break;
+                case "Adresse":
+                    clients = clients.OrderBy(s => s.adresse);
+                    break;
+                case "adresse_desc":
+                    clients = clients.OrderByDescending(s => s.adresse);
+                    break;
+                default:
+                    clients = clients.OrderBy(s => s.pseudo);
+                    break;
+            }
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(clients.ToPagedList(pageNumber, pageSize));
+            
         }
 
         // GET: Client/Details/5
@@ -58,7 +100,7 @@ namespace TechnoShop.Controllers
                 return RedirectToAction("Index");
             }
             }
-            catch (DataException /* dex */)
+            catch (RetryLimitExceededException /* dex */)
             {
                 //Log the error (uncomment dex variable name and add a line here to write a log.
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");

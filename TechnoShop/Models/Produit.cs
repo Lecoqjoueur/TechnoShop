@@ -16,6 +16,7 @@ namespace TechnoShop.Models
         public string detail { get; set; }
         public Double prix { get; set; }
 
+        public string Secret { get; set; }
         public virtual ICollection<Commande> Commandes { get; set; }
     }
 }

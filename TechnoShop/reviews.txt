@@ -1,0 +1,16 @@
+<reviews>
+  <entry>
+    <title>TCP/IP Illustrated</title>
+    <rating>5</rating>
+    <remarks>
+      Excellent technical content. Not much plot.
+    </remarks>
+  </entry>
+  <entry>
+    <title>Data on the Web</title>
+    <rating>3</rating>
+    <remarks>
+      Half in earnest technical content.
+    </remarks>
+  </entry>
+</reviews>

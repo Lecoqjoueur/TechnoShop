@@ -53,6 +53,12 @@
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -133,9 +139,23 @@
     <Compile Include="Controllers\ProduitController.cs" />
     <Compile Include="DAL\MagasinContext.cs" />
     <Compile Include="DAL\MagasinInitializer.cs" />
+    <Compile Include="DAL\MagasinConfiguration.cs" />
+    <Compile Include="DAL\MagasinInterceptorLogging.cs" />
+    <Compile Include="DAL\MagasinInterceptorTransientErrors.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="journalisation\ILogger.cs" />
+    <Compile Include="journalisation\logger.cs" />
+    <Compile Include="Migrations\202012041825303_InitialCreate.cs" />
+    <Compile Include="Migrations\202012041825303_InitialCreate.designer.cs">
+      <DependentUpon>202012041825303_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012112244450_ComplexDataModel.cs" />
+    <Compile Include="Migrations\202012112244450_ComplexDataModel.designer.cs">
+      <DependentUpon>202012112244450_ComplexDataModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Commande.cs" />
     <Compile Include="Models\Produit.cs" />
@@ -146,6 +166,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -208,6 +229,14 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202012041825303_InitialCreate.resx">
+      <DependentUpon>202012041825303_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012112244450_ComplexDataModel.resx">
+      <DependentUpon>202012112244450_ComplexDataModel.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

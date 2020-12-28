@@ -18,8 +18,10 @@ namespace TechnoShop.Models
         public int IDProduit { get; set; }
 
         public int quantite { get; set; }
+        [DisplayFormat(NullDisplayText = "No grade")]
         public Grade? Grade { get; set; }
 
+    
         public virtual Client Clients { get; set; }
         public virtual Produit Produits { get; set; }
     }
